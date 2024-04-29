@@ -1,0 +1,31 @@
+
+<body>
+    <p></p>
+    <img/>
+    <script type="module"> 
+        import qrcode from 'https://cdn.jsdelivr.net/npm/qrcode@1.5.3/+esm'
+
+        (async function() {
+            let inode = document.querySelector('img');
+
+            let us = [`$1`, `$2`];
+            let qrs = [];
+            let qri = 0;
+
+            function update() {
+                inode.src = qrs[qri];
+                document.querySelector('p').innerHTML = us[qri];
+            }
+
+            qrs[0] = await qrcode.toDataURL(us[0]);
+            qrs[1] = await qrcode.toDataURL(us[1]);
+
+            update();
+
+            inode.addEventListener("click", () => {
+                qri = (qri + 1) % qrs.length;
+                update();                
+            });  
+        })();      
+    </script>
+</body>

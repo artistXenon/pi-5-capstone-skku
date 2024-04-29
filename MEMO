@@ -1,0 +1,72 @@
+
+저장소:json config
+module:
+google api key etc                                                            
+weather api
+memo
+info
+calender
+
+-display
+
+main
+if config  load
+else init config { wifi, app, stuffs }
+listen app { update config }
+listen sensor prox { out? in? }
+listen sensor space { if in tell app }
+
+
+
+
+android app 보관 상태 보여주기 설정 알림 서비스
+
+
+
+
+서버 상태
+node
+
+only weather + how bout pairing one of your phone?
+take what you need
+return what you have
+
+
+with google
+
+
+
+
+
+
+
+
+
+
+앱 서버 상태
+create: 
+
+if we dont know a pi {
+    pi finding mode
+
+
+} else {
+    we look for the pi in this network 
+    if not in network {
+        you can remove existing pi and find a new one
+    } else  {
+        we get access to these settings
+        // TODO
+    }
+}
+
+
+
+// https://stackoverflow.com/questions/5888502/how-to-detect-when-wifi-connection-has-been-established-in-android
+// https://stackoverflow.com/questions/9092134/broadcast-receiver-within-a-service
+service will check when we were connected to our network
+
+
+
+
+

@@ -1,0 +1,6 @@
+
+pm2 will automatically start server and then open browser
+
+wifi config: 
+/etc/wpa_supplicant/wpa_supplicant.conf
+iwgetid: wifi stat

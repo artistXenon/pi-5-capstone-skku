@@ -1,0 +1,27 @@
+<script>
+    function getQueryVariable(variable) {
+        const query = window.location.search.substring(1);
+        const vars = query.split('&');
+        for (const i = 0; i < vars.length; i++) {
+            const pair = vars[i].split('=');
+            if (decodeURIComponent(pair[0]) == variable) {
+                return decodeURIComponent(pair[1]);
+            }
+        }
+        return undefined;
+    }
+    const ws = new WebSocket(`ws://localhost:${getQueryVariable('ws')}`);
+
+    ws.onopen = function(event) {
+        ws.send(JSON.stringify({type: 'weather'}));
+        ws.send(JSON.stringify({type: 'stuffs'}));
+        ws.send(JSON.stringify({type: 'today'}));
+    };
+
+    ws.onmessage = function (event) {
+        const msg = JSON.parse(event.data);
+        // msg.type === stuff, weather, today
+        // ws.send("hi");
+        console.log(event.data);
+    };
+</script>
