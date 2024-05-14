@@ -1,5 +1,8 @@
+const axios = require('axios');
 const { Router, static } = require('express');
 const path = require('path');
+const { setCode } = require('./api/google');
+const { getState } = require('./states');
 
 const router = Router();
 
@@ -14,6 +17,7 @@ router.get('/', (req, res) => {
 });
 
 router.get('/app/download', (req, res) => {
+    res.set('Content-Disposition', `attachment; filename="app.apk"`);
     res.sendFile(path.join(__dirname, "app.apk"));
 });
 
@@ -27,19 +31,34 @@ router.get('/app/connect', (req, res) => {
     const now = Date.now();
     const new_hi = { ip, until: now + 60 * 1000 };
     new_hi.interval = setInterval(function() {
-        if (new_hi.until < now) return clearInterval(this.interval);
+        console.log("emitting hi to " + hi.ip);
+        if (hi.until < now) return clearInterval(hi.interval);
+        const { ports } = getState('config').Data;
+        axios.get(`http://${hi.ip}:9000/hi?http=${ports.http}&ws=${ports.ws}`)
+            .then((r) => {
+                console.log('hi accepted');
+                clearInterval(hi.interval);
 
+            })
+            .catch((e) => {});
         // say hi
         //     if hi { save ip, time, clearInterval }
     }, 3000);
     hi = new_hi;
 });
 
-router.get('/app/google', (req, res) => {
-    res.send('ji');
-    // if hi match { return 403 }
-    // verify code get token save ip
-    // return result
+router.get('/app/google', async (req, res) => {
+    res.send('hi');
+    let ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+    if (hi.ip !== ip) {
+        return res.status(403).send('not my app. retry');
+    }
+    let code; // TODO: get code from query 
+    let token = await setCode(code);
+    if (token) {
+        return res.send('OK');
+    }
+    res.status(400).send('invalid code.');
 });
 
 

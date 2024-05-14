@@ -14,18 +14,17 @@ module.exports = function (ws) {
                 res = onStuffs(data);
                 break;
             case 'today':
-                res = onToday(data);
+                res = await onToday(data);
                 break;
             case 'ping':
                 res = onPing(data);
                 break;
         }
         if (res === undefined) return;
-        res = {
+        ws.send(JSON.stringify({
             type: data.type,
             data: res
-        };
-        ws.send(JSON.stringify(res));
+        }));
     };
 };
 

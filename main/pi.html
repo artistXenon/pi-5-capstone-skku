@@ -1,3 +1,5 @@
+<div id="log"></div>
+<img id="qr">
 <script>
     function getQueryVariable(variable) {
         const query = window.location.search.substring(1);
@@ -22,6 +24,12 @@
         const msg = JSON.parse(event.data);
         // msg.type === stuff, weather, today
         // ws.send("hi");
-        console.log(event.data);
+        if (msg.type === 'today') {
+            if (msg.data.code === 1) {
+                document.querySelector("#qr").src = msg.data.data;
+            }
+            return;
+        }
+        document.querySelector("#log").innerHTML += event.data;
     };
 </script>
