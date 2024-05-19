@@ -21,11 +21,11 @@ function setToken(t) {
 }
 
 async function getCalendar() {
-    if (userState.Data?.google == null) {
+    const savedToken = userState.Data?.google;
+    if (savedToken == null) {
         return undefined; // no user
     }
-    // if saved token is invalid 
-    // delete google token
+    setToken(savedToken);
 
     const cal = google.calendar({
         version,

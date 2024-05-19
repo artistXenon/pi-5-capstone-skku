@@ -54,16 +54,18 @@ router.get('/app/google', async (req, res) => {
     // res.send('hi');
     let ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
     if (ip.substring(0, 7) === "::ffff:") ip = ip.substring(7);
+
     if (hi.ip !== ip) {
-        console.log('u here son?', ip);
         return res.status(403).send('not my app. retry');
     }
     let code = req.headers['code'];
-    console.log('code arrived', code);
 
     let token = await setCode(code);
     if (token) {
-        console.log('valid token obtained');
+        const user_state = getState('user');
+        user_state.Data.ip = hi.ip;
+        user_state.Data.google = token;
+        console.log('valid token obtained: ', user_state.Data.google);
         return res.send('OK');
     }
     res.status(400).send('invalid code.');
