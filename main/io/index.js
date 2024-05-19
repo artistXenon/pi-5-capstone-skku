@@ -1,14 +1,22 @@
 const { SerialPort } = require('serialport');
 
-const path = '', baudRate = 9600;
+const path = '/dev/ttyACM0', baudRate = 9600;
 // Create a port
 let port = new SerialPort({ path, baudRate }, (err) => {
     if (err) console.log(err);
     else console.log('serial initiated');
 });
 
+let flush = '';
+
 port.on('data', (data) => {
-    console.log(data);
+    const d = data.toString();
+    if (d !== '\n') {
+        flush += d;
+        return;
+    }
+    console.log(flush);
+    flush = '';
 });
 
 setInterval(() => {
