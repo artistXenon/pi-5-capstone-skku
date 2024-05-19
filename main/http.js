@@ -28,6 +28,9 @@ router.get('/app/connect', (req, res) => {
 
     let ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
     if (ip.substring(0, 7) === "::ffff:") ip = ip.substring(7);
+    if (hi != null) {
+        clearInterval(hi.interval);
+    }
     const now = Date.now();
     const new_hi = { ip, until: now + 60 * 1000 };
     new_hi.interval = setInterval(function() {
