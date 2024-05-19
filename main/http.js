@@ -63,8 +63,11 @@ router.get('/app/google', async (req, res) => {
     let token = await setCode(code);
     if (token) {
         const user_state = getState('user');
-        user_state.Data.ip = hi.ip;
-        user_state.Data.google = token;
+        user_state.Data = {
+            ip: hi.ip,
+            google: token
+        };
+        user_state.update();
         console.log('valid token obtained: ', user_state.Data.google);
         return res.send('OK');
     }

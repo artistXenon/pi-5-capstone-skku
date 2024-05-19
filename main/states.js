@@ -35,6 +35,10 @@ class State {
         return this.#data;
     }
 
+    set Data(data) {
+        this.#data = data;
+    }
+
     // active call
     update(payload) {
         if (!this.#onUpdate(this.#data, payload) || this.#path === undefined) return;
