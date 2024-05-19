@@ -51,6 +51,7 @@ router.get('/app/connect', (req, res) => {
 });
 
 router.get('/app/google', async (req, res) => {
+    console.log('u here son?')
     // res.send('hi');
     let ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
     if (hi.ip !== ip) {
