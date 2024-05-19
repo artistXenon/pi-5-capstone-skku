@@ -56,12 +56,12 @@ router.get('/app/google', async (req, res) => {
     if (hi.ip !== ip) {
         return res.status(403).send('not my app. retry');
     }
-    res.send("no");
-    console.log(Object.keys(req.query));
-    let code = ""; // TODO: get code from query 
-    return;
+    let code = req.headers['code'];
+    console.log('code arrived', code);
+
     let token = await setCode(code);
     if (token) {
+        console.log('valid token obtained');
         return res.send('OK');
     }
     res.status(400).send('invalid code.');
