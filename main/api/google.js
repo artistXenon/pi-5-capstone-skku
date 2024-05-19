@@ -34,8 +34,8 @@ async function getCalendar() {
     const res = await cal.calendarList.list();
     // todo error handle
     
-    await cal.calendars.get({ calendarId: res.data.items[0].id })
-    return ;
+    const result = await cal.calendars.get({ calendarId: res.data.items[0].id });
+    return result;
 }
 
 
