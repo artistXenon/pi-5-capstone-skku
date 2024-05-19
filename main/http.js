@@ -51,12 +51,15 @@ router.get('/app/connect', (req, res) => {
 });
 
 router.get('/app/google', async (req, res) => {
-    res.send('hi');
+    // res.send('hi');
     let ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
     if (hi.ip !== ip) {
         return res.status(403).send('not my app. retry');
     }
-    let code; // TODO: get code from query 
+    res.send("no");
+    console.log(Object.keys(req.query));
+    let code = ""; // TODO: get code from query 
+    return;
     let token = await setCode(code);
     if (token) {
         return res.send('OK');
