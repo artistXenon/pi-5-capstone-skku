@@ -5,6 +5,7 @@ const ip = require("ip").address();
 const { getState } = require('../states');
 const { getCalendar } = require('../api/google');
 const getWeather = require('../api/weather');
+const { getHandle } = require('../io');
 function onWeather(data) {
     return getWeather();
 }
@@ -12,23 +13,24 @@ function onWeather(data) {
 function onStuffs(data) {
     switch (data.action) {
         case 'read':
-            // send sensors
-            break;
+            const handle = getHandle();
+            const sensors = handle.Sensors;
+            // TODO: read and decide if we have it or not
+            return sensors;
         case 'write':
             // update stuffs state
             // send sensors
             break;
-        case 'calibrate':
-            // TODO: not critical
-            // if { action: calibrate, id } {
-            //     if { step: start } { save calib id, time send full }
-            //     if no calib return fail
-            //     if { step: empty } { save calib value, if full clear calib else send full }
-            //     if { step: full } { save calib value, if empty clear calib else send empty }
-            // }
-            break;
+        // case 'calibrate':
+        //     // TODO: not critical
+        //     // if { action: calibrate, id } {
+        //     //     if { step: start } { save calib id, time send full }
+        //     //     if no calib return fail
+        //     //     if { step: empty } { save calib value, if full clear calib else send full }
+        //     //     if { step: full } { save calib value, if empty clear calib else send empty }
+        //     // }
+        //     break;
         default:
-            return undefined;
     }
     return [];
 }

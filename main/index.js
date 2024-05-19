@@ -4,6 +4,7 @@ const ip = require("ip").address();
 const { WebSocketServer } = require('ws');
 
 const { getState } = require('./states');
+const {  } = require('./io');
 
 const config_state = getState('config');
 const { ports, variant } = config_state.Data;
@@ -43,3 +44,7 @@ function startBrowser(appendState) {
         else exec(`chromium-browser ${address} --kiosk --autoplay-policy=no-user-gesture-required`);
     }         
 }
+
+
+
+//// SENSORS

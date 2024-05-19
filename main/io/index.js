@@ -1,48 +1,55 @@
 const { SerialPort } = require('serialport');
 
-const path = '/dev/ttyACM0', baudRate = 9600;
-// Create a port
-let port = new SerialPort({ path, baudRate }, (err) => {
-    if (err) console.log(err);
-    else console.log('serial initiated');
-});
+let instance;
+class Handle {
+    #port;
+    #buffer = '';
+    #sensors = [];
+    #leds = [];
 
-let flush = '';
+    constructor(path, baudRate) {
+        this.#port = new SerialPort({ path, baudRate }, (err) => {
+            if (err) console.log(err);
+            else console.log('serial initiated');
+        });
 
-port.on('data', (data) => {
-    const d = data.toString();
-    if (d !== '\n') {
-        flush += d;
-        return;
+        this.#port.on('data', (data) => {
+            this.onData(data);   
+        });
+
+        setInterval(() => {
+            let write = '';
+            for (let i = 0; i < this.#leds.length; i++) {
+                write +=`${this.#leds[i] ? 1 : 0} `;
+            }
+            if (write === '') return;
+            write[write.length - 1] = '\n';
+            this.#port.write(write);
+        }, 1000); // TODO: to slow?
     }
-    console.log(flush);
-    flush = '';
-});
 
-setInterval(() => {
-    const val = Math.floor(Math.random() * 8);
-    port.write(`${val >> 2 & 1} ${val >> 1 & 1} ${val & 1}`);
-}, 1000);
+    get Sensors() {
+        return this.#sensors;
+    }
 
-function initSerial(cb) {
-    port = new SerialPort({ path, baudRate }, (err) => {
-        if (err) console.log(err);
-        else console.log('serial initiated');
-    });
+    get LEDs() {
+        return this.#leds;
+    }
 
-    port.on('data', cb);
+    onData(data) {
+        this.#buffer += data.toString();
+        const i = this.#buffer.indexOf('\n');
+        if (i === -1) return;
+        const line = this.#buffer.substring(0, i);
+        this.#buffer = this.#buffer.substring(i + 1);
+
+        this.#sensors = line.split(' ');
+    }    
 }
 
-function writeLED(...led) {
-    let write = '';
-    for (let i = 0; i < led.length; i++) {
-        write +=`${array[i] ? 1 : 0} `;
-    }
-    if (write === '') return;
-    port.write(write.substring(0, write.length - 1));
-}
+instance = new Handle('/dev/ttyACM0', 9600);
 
+// TODO: bring path from config
 module.exports = {
-    writeLED,
-    onSensor: initSerial
-}
+    getHandle: () => instance
+};

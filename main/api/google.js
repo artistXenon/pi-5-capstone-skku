@@ -10,7 +10,6 @@ const day = 1000 * 60 * 60 * 24;
 
 const auth = new google.auth.OAuth2(client_id, client_secret, redirect_uri);
 
-
 async function setCode(c) {
     const { tokens } = await auth.getToken(c);
     auth.setCredentials(tokens);
@@ -26,6 +25,7 @@ async function getCalendar() {
     if (savedToken == null) {
         return undefined; // no user
     }
+
     setToken(savedToken);
 
     const cal = google.calendar({
@@ -36,7 +36,6 @@ async function getCalendar() {
     const now = Date.now(); 
 
     const today = now - now % day;
-
 
     const res = await cal.calendarList.list();
     // todo error handle

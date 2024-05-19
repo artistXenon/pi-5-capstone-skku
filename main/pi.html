@@ -1,5 +1,6 @@
 <div id="log"></div>
 <img id="qr">
+<!-- 800 x 480 -->
 <script>
     function getQueryVariable(variable) {
         const query = window.location.search.substring(1);
@@ -15,9 +16,9 @@
     const ws = new WebSocket(`ws://localhost:${getQueryVariable('ws')}`);
 
     ws.onopen = function(event) {
-        ws.send(JSON.stringify({type: 'weather'}));
-        ws.send(JSON.stringify({type: 'stuffs'}));
-        ws.send(JSON.stringify({type: 'today'}));
+        ws.send(JSON.stringify({ type: 'weather' }));
+        ws.send(JSON.stringify({ type: 'stuffs', action: 'read' }));
+        ws.send(JSON.stringify({ type: 'today' }));
     };
 
     ws.onmessage = function (event) {
