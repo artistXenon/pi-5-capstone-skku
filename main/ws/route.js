@@ -52,7 +52,7 @@ async function onToday(data) {
     }
 //     if google { give google today calendar }
 //     else { app config qrcode }
-    return calendar;
+    return JSON.stringify(calendar);
 }
 
 function onPing(data) {

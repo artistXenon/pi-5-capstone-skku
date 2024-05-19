@@ -28,7 +28,7 @@
             if (msg.data.code === 1) {
                 document.querySelector("#qr").src = msg.data.data;
             } else {
-                document.querySelector("#log").innerHTML += msg.data.data;
+                document.querySelector("#log").innerHTML += msg.data;
             }
             return;
         }
