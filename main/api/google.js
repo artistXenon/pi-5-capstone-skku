@@ -35,7 +35,7 @@ async function getCalendar() {
 
     const now = Date.now(); 
 
-    const today = now - today % day;
+    const today = now - now % day;
 
 
     const res = await cal.calendarList.list();
@@ -45,8 +45,9 @@ async function getCalendar() {
         timeMin: new Date(today).toISOString(), 
         timeMax: new Date(today + 7 * day).toISOString()
     });
-    console.log(result);
-    return result;
+    const events = result.data
+    console.log(events);
+    return events;
 }
 
 
