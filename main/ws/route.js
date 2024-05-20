@@ -15,6 +15,7 @@ function onStuffs(data) {
             const handle = getHandle();
             const sensors = handle.Sensors;
             // TODO: read and decide if we have it or not
+            // not handle. take from tracker
             return sensors;
         case 'write':
             // update stuffs state

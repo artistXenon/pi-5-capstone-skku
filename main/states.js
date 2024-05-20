@@ -52,7 +52,7 @@ class State {
 }
 
 state_map.set('config', new State('config', () => false));
-state_map.set('stuffs', new State('stuffs'));
+state_map.set('stuffs', new State('stuffs', () => true));
 state_map.set('user', new State('user', () => true));
 
 

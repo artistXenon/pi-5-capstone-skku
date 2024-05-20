@@ -1,4 +1,6 @@
-<div id="log"></div>
+<div id="wt"></div>
+<div id="cal"></div>
+<div id="stf"></div>
 <img id="qr">
 <!-- 800 x 480 -->
 <script>
@@ -30,10 +32,14 @@
             if (msg.data.code === 1) {
                 document.querySelector("#qr").src = msg.data.data;
             } else {
-                document.querySelector("#log").innerHTML += msg.data;
+                document.querySelector("#cal").innerHTML += msg.data;
             }
             return;
         }
-        document.querySelector("#log").innerHTML += event.data;
+        if (msg.type === 'weather') {
+            document.querySelector("#wt").innerHTML += event.data;
+            return;
+        }
+        document.querySelector("#stf").innerHTML += event.data;
     };
 </script>
