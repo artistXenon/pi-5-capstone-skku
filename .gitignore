@@ -132,5 +132,4 @@ dist
 # project specific
 *.apk
 config.json
-stuffs.json
 user.json
