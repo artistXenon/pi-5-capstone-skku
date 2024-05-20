@@ -13,12 +13,13 @@
         }
         return undefined;
     }
-    const ws = new WebSocket(`ws://localhost:${getQueryVariable('ws')}`);
+    const ws = new WebSocket(`ws://${getQueryVariable('ip')}:${getQueryVariable('ws')}`);
 
     ws.onopen = function(event) {
         ws.send(JSON.stringify({ type: 'weather' }));
         ws.send(JSON.stringify({ type: 'stuffs', action: 'read' }));
         ws.send(JSON.stringify({ type: 'today' }));
+        // TODO: send these interval
     };
 
     ws.onmessage = function (event) {

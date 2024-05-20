@@ -1,7 +1,6 @@
 const { toDataURL } = require('qrcode');
 const ip = require("ip").address();
 
-
 const { getState } = require('../states');
 const { getCalendar } = require('../api/google');
 const getWeather = require('../api/weather');
@@ -21,15 +20,15 @@ function onStuffs(data) {
             // update stuffs state
             // send sensors
             break;
-        // case 'calibrate':
-        //     // TODO: not critical
-        //     // if { action: calibrate, id } {
-        //     //     if { step: start } { save calib id, time send full }
-        //     //     if no calib return fail
-        //     //     if { step: empty } { save calib value, if full clear calib else send full }
-        //     //     if { step: full } { save calib value, if empty clear calib else send empty }
-        //     // }
-        //     break;
+        case 'calibrate':
+            // TODO: not critical
+            // if { action: calibrate, id } {
+            //     if { step: start } { save calib id, time send full }
+            //     if no calib return fail
+            //     if { step: empty } { save calib value, if full clear calib else send full }
+            //     if { step: full } { save calib value, if empty clear calib else send empty }
+            // }
+            break;
         default:
     }
     return [];

@@ -39,12 +39,10 @@ let server_state = 0b00;
 function startBrowser(appendState) {
     server_state |= appendState;
     if (server_state === 0b11) {
-        const address = `http://${ip}:${ports.http}/?ws=${ports.ws}`;
+        const address = `http://${ip}:${ports.http}/?ws=${ports.ws}&ip=${ip}`;
         if (variant === 'windows') exec(`explorer "${address}"`);
         else exec(`chromium-browser ${address} --kiosk --autoplay-policy=no-user-gesture-required`);
     }         
 }
-
-
 
 //// SENSORS
