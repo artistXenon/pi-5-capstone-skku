@@ -3,8 +3,13 @@
         {
             "id": "",
             "name": "",
-            "sensor": [0, 5],
-            "full": true
+            "sensor": [0, 5]
+        }
+    ],
+    "profile": [
+        {
+            "name": "",
+            "items": []
         }
     ]
 }

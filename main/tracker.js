@@ -50,10 +50,13 @@ class Tracker {
                 // this.#handle.LEDs = [false, false, false];
                 break;
             case 1:
-                    // 가져가야하는데 안가져간 거
+                // 오늘 일정 확인
+                // 해당 프로필 없으면 전부
+                // 있으면 그 물건들
+                // 가져가야하는데 안가져간 거
                 break;  
             case 2:
-                    // 돌려줘야 하는데 없는 거
+                // 돌려줘야 하는데 없는 거
                 break;
         }
 
@@ -64,13 +67,5 @@ class Tracker {
         // set led
 
         this.#prevSensors = sensorNow;
-    }
-
-    setStuffsFull() {
-        // save current sensor val as full
-    }
-
-    setStuffsEmpty() {
-        // save current sensor val as empty
-    }   
+    }  
 }
