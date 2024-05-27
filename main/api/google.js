@@ -42,7 +42,7 @@ async function getCalendar() {
     const result = await cal.events.list({ 
         calendarId: res.data.items[1].id, 
         timeMin: new Date(today).toISOString(), 
-        timeMax: new Date(today + 7 * day).toISOString()
+        timeMax: new Date(today + day).toISOString()
     });
     const events = result.data;
     return events;

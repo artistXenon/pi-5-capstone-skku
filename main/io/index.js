@@ -23,8 +23,8 @@ class Handle {
                 write +=`${this.#leds[i] ? 1 : 0} `;
             }
             if (write === '') return;
-            write[write.length - 1] = '\n';
-            this.#port.write(write);
+//             console.log("sent: ", write);
+            this.#port.write(write.trim() + "\n");
         }, 1000); // TODO: to slow?
     }
 
@@ -38,12 +38,13 @@ class Handle {
 
     onData(data) {
         this.#buffer += data.toString();
-        const i = this.#buffer.indexOf('\n');
+        const i = this.#buffer.indexOf('\r\n');
+//     console.log(data.toString());
         if (i === -1) return;
         const line = this.#buffer.substring(0, i);
         this.#buffer = this.#buffer.substring(i + 1);
 
-        this.#sensors = line.split(' ');
+        this.#sensors = line.trim().split(' ');
     }    
 }
 

@@ -1,7 +1,75 @@
-<div id="wt"></div>
+<html>
+    <head></head>
+    <body>
+        
+
+<style>
+
+    table#root {
+        width: 100%;
+        height: 100%;
+        border: 1px solid black;
+    }
+
+    table#stuffs {
+        width: 100%;
+    }
+
+    
+    th, td {
+        border: 1px solid black;
+    }
+    #wt {
+        height: 50%;
+    }
+
+    #stuff {
+        width: 40%;
+    }
+    h3 {
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    img {
+        border: 1px solid black;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+</style>
+
+<table id="root">
+    <tr>
+        <td rowspan="2" id="stuff">
+            <table id="stuffs">
+                <tr>
+                    <td>물건 상태</td>
+                    <td>정리</td>
+                </tr>
+                <tr>
+                    <td colspan="2" id="stf"></td>
+                </tr>
+            </table>
+        </td>
+        <td id="cal">
+
+            <img id="qr">
+        </td>
+    </tr>
+    <tr>
+        <td id="wt"> 
+            <img/>
+            <h3></h3>
+        </td>
+    </tr>
+</table>
+
+
+<!-- <div id="wt"></div>
 <div id="cal"></div>
-<div id="stf"></div>
-<img id="qr">
+<div id="stf"></div> -->
+
 <!-- 800 x 480 -->
 <script>
     function getQueryVariable(variable) {
@@ -32,14 +100,23 @@
             if (msg.data.code === 1) {
                 document.querySelector("#qr").src = msg.data.data;
             } else {
-                document.querySelector("#cal").innerHTML += msg.data;
+                const { items } = JSON.parse(msg.data);
+                // 모든 item 나열
+                document.querySelector("#cal").innerHTML += '오늘의 일정: ' + items[0].summary;
             }
             return;
         }
         if (msg.type === 'weather') {
-            document.querySelector("#wt").innerHTML += event.data;
+            const weather = JSON.parse(event.data).data;
+            const { temp_min, temp_max } = weather.main;
+            const { main, icon } = weather.weather[0];
+            document.querySelector("#wt > img").src = `https://openweathermap.org/img/wn/${icon}@2x.png`;
+            document.querySelector("#wt > h3").innerHTML = `${main} | ${Math.round(temp_min - 273)}°C/${Math.round(temp_max - 273)}°C`;
             return;
         }
         document.querySelector("#stf").innerHTML += event.data;
     };
 </script>
+
+</body>
+</html>
