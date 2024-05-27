@@ -1,21 +1,3 @@
-state: 
-idle 		0
-going 	1
-coming	2
-
-
-0 > 1
-sensor + has network
-
-0 > 2
-sensor + no network
-
-
-1, 2 > 0
-no sensor > 1min
-stuff taken / given
-
-
 
 
 

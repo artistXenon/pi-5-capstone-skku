@@ -21,6 +21,10 @@ function onStuffs(data) {
             // update stuffs state
             // send sensors
             break;
+        case 'profile':
+            // 출근, 산책
+            // { name, items: [] }
+            break;
         case 'calibrate':
             // TODO: not critical
             // if { action: calibrate, id } {
