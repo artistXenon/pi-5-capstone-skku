@@ -89,6 +89,7 @@
         ws.send(JSON.stringify({ type: 'weather' }));
         ws.send(JSON.stringify({ type: 'stuffs', action: 'read' }));
         ws.send(JSON.stringify({ type: 'today' }));
+        ws.send(JSON.stringify({ type: 'ping', device: 'pi' }));
         // TODO: send these interval
     };
 

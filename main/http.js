@@ -3,6 +3,8 @@ const { Router, static } = require('express');
 const path = require('path');
 const { setCode } = require('./api/google');
 const { getState } = require('./states');
+const { getConn } = require('./ws');
+const { onToday } = require('./ws/route');
 
 const router = Router();
 
@@ -72,6 +74,7 @@ router.get('/app/google', async (req, res) => {
         return res.send('OK');
     }
     res.status(400).send('invalid code.');
+    getConn("pi")?.send(JSON.stringify({ type: "today", data: onToday() }));
 });
 
 

@@ -24,13 +24,15 @@ let server_state = 0b00;
 //// WS BEGIN
 (async function() {
     const wss = new WebSocketServer({ port: ports.ws });
-    const messageRouter = require('./ws');
+    const { messageRouter, onClose } = require('./ws');
 
     wss.on('connection', function (ws) {
         ws.on('error', console.error);
     
         const onMessage = messageRouter(ws);
         ws.on('message', onMessage);
+
+        ws.on('close', () => onClose(ws));
     });
     startBrowser(0b10);
 })();

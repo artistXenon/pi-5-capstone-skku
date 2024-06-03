@@ -77,9 +77,11 @@ async function onToday(data) {
 }
 
 function onPing(data) {
+    const device = data?.device;
     // on ping
     // if not app nor pi { return wrong pi, disconnect }
     // log, pong
+    return [device, JSON.stringify({pong: "hi"})];
 }
 
 

@@ -1,5 +1,7 @@
+const { getCalendar } = require("./api/google");
 const { getHandle } = require("./io");
 const { getState } = require("./states");
+const { getConn } = require("./ws");
 
 const stuffs_state = getState('stuffs');
 class Tracker {
@@ -20,7 +22,7 @@ class Tracker {
      * 
      */
 
-    onTick() {
+    async onTick() {
         const HUMAN_SENSOR_INDEX = 0;
         
         const sensorNow = this.#handle.Sensors;
@@ -30,12 +32,12 @@ class Tracker {
                 sensorNow[HUMAN_SENSOR_INDEX] === 1
             ) {
                 // TODO: had app in network
-                if (true) this.#state = 1;
+                const conn = getConn("app");
+                if (conn != null) this.#state = 1;
                 else this.#state = 2;
             }
         } else if (sensorNow[HUMAN_SENSOR_INDEX] === 0 && this.#prev0 < Date.now() - 1000 * 60) {
-                this.#state = 0;
-            
+            this.#state = 0;
         }
 
         if (this.#prevSensors[HUMAN_SENSOR_INDEX] === 1 && 
@@ -44,19 +46,24 @@ class Tracker {
             this.#prev0 = Date.now();
         }
 
+
+        const stuffs = getState("stuffs");
         switch (this.#state) {
-            // TODO: pi socket 메시지도 보내도록
+            // TODO: pi socket 메시지도 보내도록            
             case 0:
-                // this.#handle.LEDs = [false, false, false];
+                this.#handle.LEDs = [0, 0, 0];
                 break;
             case 1:
+                // stuffs.Data.profile
+                // const cal = await getCalendar();
+                this.#handle.LEDs = [1, 1, 1];
                 // 오늘 일정 확인
                 // 해당 프로필 없으면 전부
                 // 있으면 그 물건들
                 // 가져가야하는데 안가져간 거
                 break;  
             case 2:
-                // 돌려줘야 하는데 없는 거
+                this.#handle.LEDs = [2, 2, 2];
                 break;
         }
 
