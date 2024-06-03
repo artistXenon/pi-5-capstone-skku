@@ -1,15 +1,26 @@
 {
     "stuffs": [
         {
-            "id": "",
-            "name": "",
-            "sensor": [0, 5]
+            "name": "물건 1",
+            "state": false
+        },
+        {
+            "name": "물건 2",
+            "state": false
+        },
+        {
+            "name": "물건 3",
+            "state": false
         }
     ],
     "profile": [
         {
-            "name": "",
-            "items": []
+            "name": "외출",
+            "items": [0, 1, 2]
+        },
+        {
+            "name": "산책",
+            "items": [0, 1]
         }
     ]
 }

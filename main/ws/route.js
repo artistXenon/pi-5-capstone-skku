@@ -14,9 +14,15 @@ function onStuffs(data) {
         case 'read':
             const handle = getHandle();
             const sensors = handle.Sensors;
+
+            const stuffs = getState("stuffs");
+            stuffs.Data.stuffs[0].state = sensors[0];
+            stuffs.Data.stuffs[1].state = sensors[1];
+            stuffs.Data.stuffs[2].state = sensors[2];
+            stuffs.update();
             // TODO: read and decide if we have it or not
             // not handle. take from tracker
-            return sensors;
+            return stuffs.Data;
         case 'write':
             // update stuffs state
             // send sensors
