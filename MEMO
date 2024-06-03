@@ -10,3 +10,8 @@ service will check when we were connected to our network
 
 
 
+push profile:
+name, items.
+
+delete profile: 
+name
