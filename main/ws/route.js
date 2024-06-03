@@ -29,9 +29,9 @@ function onStuffs(data) {
             stuffs.Data.stuffs[1].state = sensors[1];
             stuffs.Data.stuffs[2].state = sensors[2];
             if (newData != null) {
-                stuffs.Data.stuffs[0].name = newData[0];
-                stuffs.Data.stuffs[1].name = newData[1];
-                stuffs.Data.stuffs[2].name = newData[2];
+                stuffs.Data.stuffs[0].name = newData[0]?.name;
+                stuffs.Data.stuffs[1].name = newData[1]?.name;
+                stuffs.Data.stuffs[2].name = newData[2]?.name;
             }
             // update stuffs state
             // send sensors
