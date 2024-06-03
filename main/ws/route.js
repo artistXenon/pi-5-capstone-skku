@@ -10,12 +10,12 @@ function onWeather(data) {
 }
 
 function onStuffs(data) {
+    const handle = getHandle();
+    const sensors = handle.Sensors;
+    const stuffs = getState("stuffs");
     switch (data.action) {
         case 'read':
-            const handle = getHandle();
-            const sensors = handle.Sensors;
 
-            const stuffs = getState("stuffs");
             stuffs.Data.stuffs[0].state = sensors[0];
             stuffs.Data.stuffs[1].state = sensors[1];
             stuffs.Data.stuffs[2].state = sensors[2];
@@ -24,10 +24,18 @@ function onStuffs(data) {
             // not handle. take from tracker
             return stuffs.Data;
         case 'write':
-            console.log(data);
+            const newData = data?.data?.stuffs;
+            stuffs.Data.stuffs[0].state = sensors[0];
+            stuffs.Data.stuffs[1].state = sensors[1];
+            stuffs.Data.stuffs[2].state = sensors[2];
+            if (newData != null) {
+                stuffs.Data.stuffs[0].name = newData[0];
+                stuffs.Data.stuffs[1].name = newData[1];
+                stuffs.Data.stuffs[2].name = newData[2];
+            }
             // update stuffs state
             // send sensors
-            break;
+            return stuffs.Data;
         case 'profile':
             // 출근, 산책
             // { name, items: [] }
