@@ -24,6 +24,7 @@ function onStuffs(data) {
             // not handle. take from tracker
             return stuffs.Data;
         case 'write':
+            console.log(data);
             // update stuffs state
             // send sensors
             break;
