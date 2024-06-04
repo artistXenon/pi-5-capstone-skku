@@ -16,18 +16,18 @@ function onStuffs(data) {
     switch (data.action) {
         case 'read':
 
-            stuffs.Data.stuffs[0].state = sensors[0];
-            stuffs.Data.stuffs[1].state = sensors[1];
-            stuffs.Data.stuffs[2].state = sensors[2];
+            stuffs.Data.stuffs[0].state = sensors[1];
+            stuffs.Data.stuffs[1].state = sensors[2];
+            stuffs.Data.stuffs[2].state = sensors[3];
             stuffs.update();
             // TODO: read and decide if we have it or not
             // not handle. take from tracker
             return stuffs.Data;
         case 'write':
             const newData = data?.data?.stuffs;
-            stuffs.Data.stuffs[0].state = sensors[0];
-            stuffs.Data.stuffs[1].state = sensors[1];
-            stuffs.Data.stuffs[2].state = sensors[2];
+            stuffs.Data.stuffs[0].state = sensors[1];
+            stuffs.Data.stuffs[1].state = sensors[2];
+            stuffs.Data.stuffs[2].state = sensors[3];
             if (newData != null) {
                 stuffs.Data.stuffs[0].name = newData[0]?.name;
                 stuffs.Data.stuffs[1].name = newData[1]?.name;

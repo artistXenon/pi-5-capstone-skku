@@ -37,6 +37,18 @@
         margin-left: auto;
         margin-right: auto;
     }
+    .has {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        text-align: center;
+        background-color: aqua;
+    }
+    .hasnot {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        text-align: center;
+        background-color: orange;
+    }
 </style>
 
 <table id="root">
@@ -44,11 +56,12 @@
         <td rowspan="2" id="stuff">
             <table id="stuffs">
                 <tr>
-                    <td>물건 상태</td>
-                    <td>정리</td>
+                    <td id ="stf0">보관함</td>
+                    <td id ="stf1"></td>
                 </tr>
                 <tr>
-                    <td colspan="2" id="stf"></td>
+                    <td id ="stf2"></td>
+                    <td id ="stf3"></td>
                 </tr>
             </table>
         </td>
@@ -105,7 +118,7 @@
                 // 모든 item 나열
 		const todayBs = items[0];
 		if (todayBs == null) return;
-       	        document.querySelector("#cal").innerHTML = `
+        document.querySelector("#cal").innerHTML = `
 		<h2>오늘의 일정</h2>
 		<h1> ${todayBs.summary}</h1>
 		<span>${todayBs.description ? todayBs.description : ''}</span>`;
@@ -120,7 +133,28 @@
             document.querySelector("#wt > h3").innerHTML = `${main} | ${Math.round(temp_min - 273)}°C/${Math.round(temp_max - 273)}°C`;
             return;
         }
-        document.querySelector("#stf").innerHTML += event.data;
+        if (msg.type === 'stuffs') {
+            const stf = JSON.parse(event?.data)?.data?.stuffs;
+            console.log(stf);
+            if (stf === undefined)
+                document.querySelector("#stf0").innerHTML = '물건 오류';
+            let e;
+            e = document.querySelector("#stf1");
+            e.innerHTML = stf[0].name;
+            e.classList.add(stf[0].state ? 'has' : 'hasnot');
+            e.classList.remove(stf[0].state ? 'hasnot' : 'has');
+            
+            e = document.querySelector("#stf2");
+            e.innerHTML = stf[1].name;
+            e.classList.add(stf[1].state ? 'has' : 'hasnot');
+            e.classList.remove(stf[1].state ? 'hasnot' : 'has');
+            
+            e = document.querySelector("#stf3");
+            e.innerHTML = stf[2].name;
+            e.classList.add(stf[2].state ? 'has' : 'hasnot');
+            e.classList.remove(stf[2].state ? 'hasnot' : 'has');
+        }
+        
     };
 </script>
 
