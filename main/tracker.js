@@ -61,20 +61,24 @@ class Tracker {
 
                 break;
             case 1:
-                // stuffs.Data.profile
-                const cal = await getCalendar();
-                console.log(cal?.items?.[0]?.summary);
+                let take = [1, 1, 1, 0];
                 const wet = await getWeather();
-                console.log(wet?.weather?.[0]?.main);
-	        this.#handle.LEDs[0] = 1;
-                this.#handle.LEDs[1] = 1;
-                this.#handle.LEDs[2] = 1;
-                this.#handle.LEDs[3] = 0;
+                take[3] = wet?.weather?.[0]?.main === 'Rain';
 
-                // 오늘 일정 확인
-                // 해당 프로필 없으면 전부
-                // 있으면 그 물건들
-                // 가져가야하는데 안가져간 거
+                const cal = await getCalendar();
+                const pfname = cal?.items?.[0]?.summary;
+                for (const prf of stuffs.Data.profile) {
+                    if (prf.name === pfname) {
+                        take[0] = prf.items[0];
+                        take[1] = prf.items[1];
+                        take[2] = prf.items[2];
+                    }
+                }
+	            this.#handle.LEDs[0] = take[0];
+                this.#handle.LEDs[1] = take[1];
+                this.#handle.LEDs[2] = take[2];
+                this.#handle.LEDs[3] = take[3];
+
                 break;  
             case 2:
                 this.#handle.LEDs[0] = 2;
