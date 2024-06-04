@@ -3,8 +3,11 @@ const handle = getHandle();
 const { getTracker } = require('./main/tracker');
 const t = getTracker();
 
+const getWeather = require('./main/api/weather');
+getWeather().then(r => console.log(r?.weather?.[0]?.main));
+
 setInterval(() => {
-	t.onTick();
+//	t.onTick();
 //handle.LEDs[0] = true;
 //handle.LEDs[1] = false;
 //handle.LEDs[2] = true;

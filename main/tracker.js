@@ -63,9 +63,9 @@ class Tracker {
             case 1:
                 // stuffs.Data.profile
                 const cal = await getCalendar();
-                console.log(cal);
+                console.log(cal?.items?.[0]?.summary);
                 const wet = await getWeather();
-                console.log(wet);
+                console.log(wet?.weather?.[0]?.main);
 	        this.#handle.LEDs[0] = 1;
                 this.#handle.LEDs[1] = 1;
                 this.#handle.LEDs[2] = 1;
