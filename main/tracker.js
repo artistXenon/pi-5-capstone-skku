@@ -54,7 +54,11 @@ class Tracker {
         switch (this.#state) {
             // TODO: pi socket 메시지도 보내도록            
             case 0:
-                this.#handle.LEDs = [0, 0, 0, 0];
+                this.#handle.LEDs[0] = 0;
+                this.#handle.LEDs[1] = 0;
+                this.#handle.LEDs[2] = 0;
+                this.#handle.LEDs[3] = 0;
+
                 break;
             case 1:
                 // stuffs.Data.profile
@@ -62,14 +66,22 @@ class Tracker {
                 console.log(cal);
                 const wet = await getWeather();
                 console.log(wet);
-                this.#handle.LEDs = [1, 1, 1, 0];
+	        this.#handle.LEDs[0] = 1;
+                this.#handle.LEDs[1] = 1;
+                this.#handle.LEDs[2] = 1;
+                this.#handle.LEDs[3] = 0;
+
                 // 오늘 일정 확인
                 // 해당 프로필 없으면 전부
                 // 있으면 그 물건들
                 // 가져가야하는데 안가져간 거
                 break;  
             case 2:
-                this.#handle.LEDs = [2, 2, 2];
+                this.#handle.LEDs[0] = 2;
+                this.#handle.LEDs[1] = 2;
+                this.#handle.LEDs[2] = 2;
+                this.#handle.LEDs[3] = 0;
+
                 break;
         }
 
