@@ -1,9 +1,12 @@
 const { getCalendar } = require("./api/google");
+const getWeather = require("./api/weather");
 const { getHandle } = require("./io");
 const { getState } = require("./states");
 const { getConn } = require("./ws");
 
 const stuffs_state = getState('stuffs');
+
+let instance;
 class Tracker {
     #handle;
     #prev0 = 0;
@@ -51,12 +54,15 @@ class Tracker {
         switch (this.#state) {
             // TODO: pi socket 메시지도 보내도록            
             case 0:
-                this.#handle.LEDs = [0, 0, 0];
+                this.#handle.LEDs = [0, 0, 0, 0];
                 break;
             case 1:
                 // stuffs.Data.profile
-                // const cal = await getCalendar();
-                this.#handle.LEDs = [1, 1, 1];
+                const cal = await getCalendar();
+                console.log(cal);
+                const wet = await getWeather();
+                console.log(wet);
+                this.#handle.LEDs = [1, 1, 1, 0];
                 // 오늘 일정 확인
                 // 해당 프로필 없으면 전부
                 // 있으면 그 물건들
@@ -76,3 +82,10 @@ class Tracker {
         this.#prevSensors = sensorNow;
     }  
 }
+
+instance = new Tracker();
+
+// TODO: bring path from config
+module.exports = {
+    getTracker: () => instance
+};

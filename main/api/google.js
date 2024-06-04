@@ -10,6 +10,8 @@ const day = 1000 * 60 * 60 * 24;
 
 const auth = new google.auth.OAuth2(client_id, client_secret, redirect_uri);
 
+let cache = [0, undefined];
+
 async function setCode(c) {
     const { tokens } = await auth.getToken(c);
     auth.setCredentials(tokens);
@@ -21,6 +23,8 @@ function setToken(t) {
 }
 
 async function getCalendar() {
+    const now = Date.now();
+    if (cache[0] > now - 1000 * 60 * 5) return cache[1];
     const savedToken = userState.Data?.google;
     if (savedToken == null) {
         return undefined; // no user
@@ -33,8 +37,6 @@ async function getCalendar() {
         auth
     });
 
-    const now = Date.now(); 
-
     const today = now - now % day;
 
     const res = await cal.calendarList.list();
@@ -45,6 +47,8 @@ async function getCalendar() {
         timeMax: new Date(today + day).toISOString()
     });
     const events = result.data;
+    cache[0] = now;
+    cache[1] = events;
     return events;
 }
 
