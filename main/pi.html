@@ -103,7 +103,12 @@
             } else {
                 const { items } = JSON.parse(msg.data);
                 // 모든 item 나열
-                document.querySelector("#cal").innerHTML += '오늘의 일정: ' + items[0].summary;
+		const todayBs = items[0];
+		if (todayBs == null) return;
+       	        document.querySelector("#cal").innerHTML = `
+		<h2>오늘의 일정</h2>
+		<h1> ${todayBs.summary}</h1>
+		<span>${todayBs.description ? todayBs.description : ''}</span>`;
             }
             return;
         }
