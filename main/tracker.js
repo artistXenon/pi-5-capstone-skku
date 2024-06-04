@@ -31,20 +31,20 @@ class Tracker {
         const sensorNow = this.#handle.Sensors;
 
         if (this.#state === 0) {
-            if (this.#prevSensors[HUMAN_SENSOR_INDEX] === 0 && 
-                sensorNow[HUMAN_SENSOR_INDEX] === 1
+            if (this.#prevSensors[HUMAN_SENSOR_INDEX] === '0' && 
+                sensorNow[HUMAN_SENSOR_INDEX] === '1'
             ) {
                 // TODO: had app in network
                 const conn = getConn("app");
                 if (conn != null) this.#state = 1;
                 else this.#state = 2;
             }
-        } else if (sensorNow[HUMAN_SENSOR_INDEX] === 0 && this.#prev0 < Date.now() - 1000 * 60) {
+        } else if (sensorNow[HUMAN_SENSOR_INDEX] === '0' && this.#prev0 < Date.now() - 1000 * 60) {
             this.#state = 0;
         }
 
-        if (this.#prevSensors[HUMAN_SENSOR_INDEX] === 1 && 
-            sensorNow[HUMAN_SENSOR_INDEX] === 0
+        if (this.#prevSensors[HUMAN_SENSOR_INDEX] === '1' && 
+            sensorNow[HUMAN_SENSOR_INDEX] === '0'
         ) {
             this.#prev0 = Date.now();
         }
