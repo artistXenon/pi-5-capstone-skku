@@ -77,12 +77,13 @@ class Tracker {
             case 1:
                 let take = [0, 0, 0, 0];
                 const wet = await getWeather();
-                take[3] = wet?.weather?.[0]?.main === 'Rain';
+                take[3] = wet?.weather?.[0]?.main === 'Rain' ? 1 : 0;
 
                 const cal = await getCalendar();
                 const pfname = cal?.items?.[0]?.summary;
                 for (const prf of stuffs.Data.profile) {
                     if (prf.name === pfname) {
+                        console.log("!!!!!!!!!!! applied profile: " + pfname);
                         for (const item of prf.items) {
                             take[item] = 1;
                         }
