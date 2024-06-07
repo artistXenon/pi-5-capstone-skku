@@ -41,7 +41,7 @@ let server_state = 0b00;
 
 setInterval(() => {
   getTracker()?.onTick();
-}, 1000);
+}, 100);
 
 
 function startBrowser(appendState) {

@@ -25,7 +25,7 @@ class Handle {
             if (write === '') return;
 //             console.log("sent: ", write);
             this.#port.write(write.trim() + "\n");
-        }, 1000); // TODO: to slow?
+        }, 100); // TODO: to slow?
     }
 
     get Sensors() {
