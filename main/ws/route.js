@@ -56,6 +56,7 @@ function onStuffs(data) {
 
 async function onToday(data) {
     const calendar = await getCalendar();
+    console.log(calendar);
     if (calendar === undefined) {
         return new Promise((res, rej) => {
             const config_state = getState('config');

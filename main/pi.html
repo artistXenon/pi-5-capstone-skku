@@ -24,7 +24,7 @@
     }
 
     #stuff {
-        width: 40%;
+        width: 60%;
     }
     h3 {
         text-align: center;
@@ -38,16 +38,16 @@
         margin-right: auto;
     }
     .has {
-        padding-top: 10px;
-        padding-bottom: 10px;
-        text-align: center;
         background-color: aqua;
     }
     .hasnot {
-        padding-top: 10px;
-        padding-bottom: 10px;
-        text-align: center;
         background-color: orange;
+    }
+    .stfs {       
+	 padding-top: 44px;
+         padding-bottom: 44px;
+         text-align: center;
+	 border-radius: 8px;
     }
 </style>
 
@@ -56,12 +56,12 @@
         <td rowspan="2" id="stuff">
             <table id="stuffs">
                 <tr>
-                    <td id ="stf0">보관함</td>
-                    <td id ="stf1"></td>
+                    <td id ="stf0" class="stfs">보관함</td>
+                    <td id ="stf1" class="stfs"></td>
                 </tr>
                 <tr>
-                    <td id ="stf2"></td>
-                    <td id ="stf3"></td>
+                    <td id ="stf2" class="stfs"></td>
+                    <td id ="stf3" class="stfs"></td>
                 </tr>
             </table>
         </td>
@@ -115,13 +115,13 @@
                 document.querySelector("#qr").src = msg.data.data;
             } else {
                 const { items } = JSON.parse(msg.data);
+		console.log(items);
                 // 모든 item 나열
 		const todayBs = items[0];
-		if (todayBs == null) return;
         document.querySelector("#cal").innerHTML = `
 		<h2>오늘의 일정</h2>
-		<h1> ${todayBs.summary}</h1>
-		<span>${todayBs.description ? todayBs.description : ''}</span>`;
+		<h1> ${todayBs?.summary ? todayBs.summary :'특이사항이 없습니다'}</h1>
+		<span>${todayBs?.summary ? todayBs.description ? todayBs.description : '' : 'Google Calendar 앱을 통해 일정을 추가하세요'}</span>`;
             }
             return;
         }
