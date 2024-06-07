@@ -130,6 +130,6 @@ dist
 .pnp.*
 
 # project specific
-*.apk
+#*.apk
 config.json
 user.json
