@@ -83,7 +83,7 @@ class Tracker {
                 const pfname = cal?.items?.[0]?.summary;
                 for (const prf of stuffs.Data.profile) {
                     if (prf.name === pfname) {
-                        for (item of prf.items) {
+                        for (const item of prf.items) {
                             take[item] = 1;
                         }
                     } else {
