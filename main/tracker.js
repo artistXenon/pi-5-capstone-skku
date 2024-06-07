@@ -80,7 +80,7 @@ class Tracker {
 
                 const cal = await getCalendar();
                 const pfname = cal?.items?.[0]?.summary;
-                const somethingFound = false;
+                let somethingFound = false;
                 for (const prf of stuffs.Data.profile) {
                     if (prf.name === pfname) {
                         somethingFound = true;
