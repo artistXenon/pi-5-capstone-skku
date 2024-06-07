@@ -17,7 +17,7 @@ const t = getTracker();
 // }, 1000);
 //
 setInterval(() => {
-t.onTick();
+  t.onTick();
 
 }, 1000);
 

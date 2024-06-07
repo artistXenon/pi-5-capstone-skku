@@ -1,4 +1,4 @@
-const { onWeather, onStuffs, onToday, onPing } = require("./route");
+const { onWeather, onStuffs, onToday, onPing, onReset } = require("./route");
 
 let app_conn = undefined, pi_conn = undefined;
 
@@ -27,6 +27,8 @@ module.exports = {
                         pi_conn = ws;
                     }
                     break;
+                case 'reset':
+                    onReset();
             }
             if (res === undefined) return;
             ws.send(JSON.stringify({
@@ -45,3 +47,4 @@ module.exports = {
         return undefined;
     }
 }
+

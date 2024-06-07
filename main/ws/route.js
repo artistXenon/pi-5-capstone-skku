@@ -64,12 +64,12 @@ async function onToday(data) {
             toDataURL(
                 `http://${ip}:${ports.http}/app/connect`,
                 function (err, url) {
-                if (err) rej(err);
-                else res({
-                    code: 1, // 0: correct calendar, 1: no google
-                    data: url
+                    if (err) rej(err);
+                    else res({
+                        code: 1, // 0: correct calendar, 1: no google
+                        data: url
+                    });
                 });
-            });
         });
     }
 //     if google { give google today calendar }
@@ -82,10 +82,19 @@ function onPing(data) {
     // on ping
     // if not app nor pi { return wrong pi, disconnect }
     // log, pong
-    return [device, JSON.stringify({pong: "hi"})];
+    return [device, JSON.stringify({ pong: "hi" })];
 }
 
+function onReset() {
+    const state = getState("user");
+    state.Data = undefined;
+    state.update();
+
+    // reset google
+    // 
+
+}
 
 module.exports = {
-    onWeather, onStuffs, onToday, onPing
+    onWeather, onStuffs, onToday, onPing, onReset
 };

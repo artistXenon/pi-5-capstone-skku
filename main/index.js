@@ -13,38 +13,38 @@ let server_state = 0b00;
 
 //// HTTP BEGIN
 (async function () {
-const app = express();
-const router = require('./http');
+    const app = express();
+    const router = require('./http');
 
-app.use(router);
-app.listen(ports.http, () => { startBrowser(0b01); });
+    app.use(router);
+    app.listen(ports.http, () => { startBrowser(0b01); });
 })();
-//// HTTP END
+    //// HTTP END
 
-//// WS BEGIN
+    //// WS BEGIN
 (async function () {
-const wss = new WebSocketServer({ port: ports.ws });
-const { messageRouter, onClose } = require('./ws');
+    const wss = new WebSocketServer({ port: ports.ws });
+    const { messageRouter, onClose } = require('./ws');
 
-wss.on('connection', function (ws) {
-ws.on('error', console.error);
+    wss.on('connection', function (ws) {
+        ws.on('error', console.error);
 
-const onMessage = messageRouter(ws);
-ws.on('message', onMessage);
+        const onMessage = messageRouter(ws);
+        ws.on('message', onMessage);
 
-ws.on('close', () => onClose(ws));
-});
-startBrowser(0b10);
+        ws.on('close', () => onClose(ws));
+    });
+    startBrowser(0b10);
 })();
-//// WS END
+    //// WS END
 
 function startBrowser(appendState) {
-server_state |= appendState;
-if (server_state === 0b11) {
-const address = `http://${ip}:${ports.http}/?ws=${ports.ws}&ip=${ip}`;
-if (variant === 'windows') exec(`explorer "${address}"`);
-else exec(`DISPLAY=:0 chromium-browser "${address}"`);//  --kiosk --autoplay-policy=no-user-gesture-required
-}
+    server_state |= appendState;
+    if (server_state === 0b11) {
+        const address = `http://${ip}:${ports.http}/?ws=${ports.ws}&ip=${ip}`;
+        if (variant === 'windows') exec(`explorer "${address}"`);
+        else exec(`DISPLAY=:0 chromium-browser "${address}"`);//  --kiosk --autoplay-policy=no-user-gesture-required
+    }
 }
 
 //// SENSORS
