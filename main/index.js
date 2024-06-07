@@ -40,7 +40,7 @@ let server_state = 0b00;
     //// WS END
 
 setInterval(() => {
-  getTracker().tick();
+  getTracker()?.tick();
 }, 1000);
 
 
