@@ -4,7 +4,7 @@ const ip = require("ip").address();
 const { WebSocketServer } = require('ws');
 
 const { getState } = require('./states');
-const {  } = require('./io');
+const { } = require('./io');
 
 const config_state = getState('config');
 const { ports, variant } = config_state.Data;
@@ -12,7 +12,7 @@ const { ports, variant } = config_state.Data;
 let server_state = 0b00;
 
 //// HTTP BEGIN
-(async function(){
+(async function () {
     const app = express();
     const router = require('./http');
 
@@ -22,13 +22,13 @@ let server_state = 0b00;
 //// HTTP END
 
 //// WS BEGIN
-(async function() {
+(async function () {
     const wss = new WebSocketServer({ port: ports.ws });
     const { messageRouter, onClose } = require('./ws');
 
     wss.on('connection', function (ws) {
         ws.on('error', console.error);
-    
+
         const onMessage = messageRouter(ws);
         ws.on('message', onMessage);
 
@@ -43,8 +43,8 @@ function startBrowser(appendState) {
     if (server_state === 0b11) {
         const address = `http://${ip}:${ports.http}/?ws=${ports.ws}&ip=${ip}`;
         if (variant === 'windows') exec(`explorer "${address}"`);
-        else exec(`chromium-browser "${address}" `); //--kiosk --autoplay-policy=no-user-gesture-required
-    }         
+        else exec(`DISPLAY=:0 gpicview && chromium-browser "${address}" `); //--kiosk --autoplay-policy=no-user-gesture-required
+    }
 }
 
 //// SENSORS
