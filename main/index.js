@@ -4,7 +4,8 @@ const ip = require("ip").address();
 const { WebSocketServer } = require('ws');
 
 const { getState } = require('./states');
-const { } = require('./io');
+// const { } = require('./io');
+const { getTracker } = require('./tracker');
 
 const config_state = getState('config');
 const { ports, variant } = config_state.Data;
@@ -37,6 +38,11 @@ let server_state = 0b00;
     startBrowser(0b10);
 })();
     //// WS END
+
+setInterval(() => {
+  getTracker().tick();
+}, 1000);
+
 
 function startBrowser(appendState) {
     server_state |= appendState;
