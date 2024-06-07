@@ -101,7 +101,7 @@ class Tracker {
 
                 break;
         }
-        if (DEBUG_SWITCH) console.log("tick led sent: " + this.#handle.LEDs);
+        if (DEBUG_SWITCH) console.log("tick led sent: " + this.#handle.LEDs + "\n");
         getConn("pi")?.send(JSON.stringify({ type: "stuffs", data: onStuffs({ action: "read" }) }));
 
 
