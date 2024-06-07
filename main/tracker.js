@@ -27,11 +27,11 @@ class Tracker {
 
     async onTick() {
         const HUMAN_SENSOR_INDEX = 0;
-        
+
         const sensorNow = this.#handle.Sensors;
 
         if (this.#state === 0) {
-            if (this.#prevSensors[HUMAN_SENSOR_INDEX] === '0' && 
+            if (this.#prevSensors[HUMAN_SENSOR_INDEX] === '0' &&
                 sensorNow[HUMAN_SENSOR_INDEX] === '1'
             ) {
                 // TODO: had app in network
@@ -43,7 +43,7 @@ class Tracker {
             this.#state = 0;
         }
 
-        if (this.#prevSensors[HUMAN_SENSOR_INDEX] === '1' && 
+        if (this.#prevSensors[HUMAN_SENSOR_INDEX] === '1' &&
             sensorNow[HUMAN_SENSOR_INDEX] === '0'
         ) {
             this.#prev0 = Date.now();
@@ -74,12 +74,12 @@ class Tracker {
                         take[2] = prf.items[2];
                     }
                 }
-	            this.#handle.LEDs[0] = take[0];
+                this.#handle.LEDs[0] = take[0];
                 this.#handle.LEDs[1] = take[1];
                 this.#handle.LEDs[2] = take[2];
                 this.#handle.LEDs[3] = take[3];
 
-                break;  
+                break;
             case 2:
                 this.#handle.LEDs[0] = 2;
                 this.#handle.LEDs[1] = 2;
@@ -88,7 +88,7 @@ class Tracker {
 
                 break;
         }
-
+        getConn("pi")?.send(JSON.stringify({ type: "stuffs", data: onStuffs({ action: "read" }) }));
 
 
         // read sensor
@@ -96,7 +96,7 @@ class Tracker {
         // set led
 
         this.#prevSensors = sensorNow;
-    }  
+    }
 }
 
 instance = new Tracker();
