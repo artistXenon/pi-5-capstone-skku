@@ -141,18 +141,18 @@
             let e;
             e = document.querySelector("#stf1");
             e.innerHTML = stf[0].name;
-            e.classList.add(stf[0].state ? 'has' : 'hasnot');
-            e.classList.remove(stf[0].state ? 'hasnot' : 'has');
+            e.classList.add(stf[0].state == '1' ? 'has' : 'hasnot');
+            e.classList.remove(stf[0].state == '1' ? 'hasnot' : 'has');
             
             e = document.querySelector("#stf2");
             e.innerHTML = stf[1].name;
-            e.classList.add(stf[1].state ? 'has' : 'hasnot');
-            e.classList.remove(stf[1].state ? 'hasnot' : 'has');
+            e.classList.add(stf[1].state == '1' ? 'has' : 'hasnot');
+            e.classList.remove(stf[1].state == '1' ? 'hasnot' : 'has');
             
             e = document.querySelector("#stf3");
             e.innerHTML = stf[2].name;
-            e.classList.add(stf[2].state ? 'has' : 'hasnot');
-            e.classList.remove(stf[2].state ? 'hasnot' : 'has');
+            e.classList.add(stf[2].state == '1' ? 'has' : 'hasnot');
+            e.classList.remove(stf[2].state == '1' ? 'hasnot' : 'has');
         }
         
     };
