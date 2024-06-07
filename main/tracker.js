@@ -7,6 +7,8 @@ const { onStuffs } = require("./ws/route");
 
 const stuffs_state = getState('stuffs');
 
+const DEBUG_SWITCH = true;
+
 let instance;
 class Tracker {
     #handle;
@@ -31,6 +33,9 @@ class Tracker {
 
         const sensorNow = this.#handle.Sensors;
 
+        if (DEBUG_SWITCH) console.log("tick current state: " + this.#state);
+        if (DEBUG_SWITCH) console.log("tick Sensors: " + sensorNow);
+
         if (this.#state === 0) {
             if (this.#prevSensors[HUMAN_SENSOR_INDEX] === '0' &&
                 sensorNow[HUMAN_SENSOR_INDEX] === '1'
@@ -49,6 +54,9 @@ class Tracker {
         ) {
             this.#prev0 = Date.now();
         }
+
+        if (DEBUG_SWITCH) console.log("tick led now: " + this.#handle.LEDs);
+        if (DEBUG_SWITCH) console.log("tick updated state: " + this.#state);
 
 
         const stuffs = getState("stuffs");
@@ -93,6 +101,7 @@ class Tracker {
 
                 break;
         }
+        if (DEBUG_SWITCH) console.log("tick led sent: " + this.#handle.LEDs);
         getConn("pi")?.send(JSON.stringify({ type: "stuffs", data: onStuffs({ action: "read" }) }));
 
 
