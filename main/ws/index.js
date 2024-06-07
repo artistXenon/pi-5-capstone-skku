@@ -22,6 +22,7 @@ module.exports = {
                 case 'ping':
                     const [ name, _res ] = await onPing(data);
                     if (name === "app") {
+                        console.log("app connection preserved");
                         app_conn = ws;
                     } else if (name === "pi") {
                         pi_conn = ws;
