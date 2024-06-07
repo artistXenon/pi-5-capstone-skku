@@ -3,6 +3,7 @@ const getWeather = require("./api/weather");
 const { getHandle } = require("./io");
 const { getState } = require("./states");
 const { getConn } = require("./ws");
+const { onStuffs } = require("./ws/route");
 
 const stuffs_state = getState('stuffs');
 
