@@ -71,9 +71,9 @@ router.get('/app/google', async (req, res) => {
         };
         user_state.update();
         console.log('valid token obtained: ', user_state.Data.google);
-        return res.send('OK');
+        res.send('OK');
     }
-    res.status(400).send('invalid code.');
+    else res.status(400).send('invalid code.');
     getConn("pi")?.send(JSON.stringify({ type: "today", data: onToday() }));
 });
 
