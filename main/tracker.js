@@ -66,7 +66,6 @@ class Tracker {
 
 
         switch (this.#state) {
-        // TODO: pi socket 메시지도 보내도록            
             case 0:
                 this.#handle.LEDs[0] = 0;
                 this.#handle.LEDs[1] = 0;
@@ -81,18 +80,21 @@ class Tracker {
 
                 const cal = await getCalendar();
                 const pfname = cal?.items?.[0]?.summary;
+                const somethingFound = false;
                 for (const prf of stuffs.Data.profile) {
                     if (prf.name === pfname) {
-                        console.log("!!!!!!!!!!! applied profile: " + pfname);
+                        somethingFound = true;
                         for (const item of prf.items) {
                             take[item] = 1;
                         }
-                    } else {
+                    } 
+                }
+                if (!somethingFound) {   
                         take[0] = 1;
                         take[1] = 1;
                         take[2] = 1;
                     }
-                }
+
                 this.#handle.LEDs[0] = take[0];
                 this.#handle.LEDs[1] = take[1];
                 this.#handle.LEDs[2] = take[2];
