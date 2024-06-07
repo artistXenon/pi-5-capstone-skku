@@ -7,7 +7,7 @@ const { onStuffs } = require("./ws/route");
 
 const stuffs_state = getState('stuffs');
 
-const DEBUG_SWITCH = true;
+const DEBUG_SWITCH = false;
 
 let instance;
 class Tracker {
@@ -45,6 +45,7 @@ class Tracker {
                 const conn = getConn("app");
                 if (conn != null) this.#state = 1;
                 else this.#state = 2;
+                console.log("new state: " + this.#state);
             }
         } else if (sensorNow[HUMAN_SENSOR_INDEX] === '0' && this.#prev0 < Date.now() - 1000 * 60) {
             this.#state = 0;
