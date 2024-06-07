@@ -30,6 +30,7 @@ class Tracker {
 
     async onTick() {
         const HUMAN_SENSOR_INDEX = 0;
+        const stuffs = getState("stuffs");
 
         const sensorNow = this.#handle.Sensors;
 
@@ -58,8 +59,12 @@ class Tracker {
         if (DEBUG_SWITCH) console.log("tick led now: " + this.#handle.LEDs);
         if (DEBUG_SWITCH) console.log("tick updated state: " + this.#state);
 
+        stuffs.Data.stuffs[0].state = sensorNow[1];
+        stuffs.Data.stuffs[1].state = sensorNow[2];
+        stuffs.Data.stuffs[2].state = sensorNow[3];
+        stuffs.update();
 
-        const stuffs = getState("stuffs");
+
         switch (this.#state) {
         // TODO: pi socket 메시지도 보내도록            
             case 0:

@@ -16,10 +16,6 @@ function onStuffs(data) {
     switch (data.action) {
         case 'read':
 
-            stuffs.Data.stuffs[0].state = sensors[1];
-            stuffs.Data.stuffs[1].state = sensors[2];
-            stuffs.Data.stuffs[2].state = sensors[3];
-            stuffs.update();
             // TODO: read and decide if we have it or not
             // not handle. take from tracker
             return stuffs.Data;
