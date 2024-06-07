@@ -74,7 +74,7 @@ router.get('/app/google', async (req, res) => {
         res.send('OK');
     }
     else res.status(400).send('invalid code.');
-    getConn("pi")?.send(JSON.stringify({ type: "today", data: onToday() }));
+    getConn("pi")?.send(JSON.stringify({ type: "today", data: await onToday() }));
 });
 
 
