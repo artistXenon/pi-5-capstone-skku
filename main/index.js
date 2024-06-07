@@ -49,7 +49,7 @@ function startBrowser(appendState) {
     if (server_state === 0b11) {
         const address = `http://${ip}:${ports.http}/?ws=${ports.ws}&ip=${ip}`;
         if (variant === 'windows') exec(`explorer "${address}"`);
-        else exec(`DISPLAY=:0 chromium-browser "${address}"`);//  --kiosk --autoplay-policy=no-user-gesture-required
+        else exec(`DISPLAY=:0 chromium-browser "${address}" --kiosk --autoplay-policy=no-user-gesture-required`);
     }
 }
 
