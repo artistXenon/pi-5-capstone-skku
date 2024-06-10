@@ -9,6 +9,8 @@ const stuffs_state = getState('stuffs');
 
 const DEBUG_SWITCH = false;
 
+const allow_rain = false;
+
 let instance;
 class Tracker {
     #handle;
@@ -77,7 +79,7 @@ class Tracker {
             case 1:
                 let take = [0, 0, 0, 0];
                 const wet = await getWeather();
-                take[3] = wet?.weather?.[0]?.main === 'Rain' ? 1 : 0;
+                take[3] = allow_rain ? 1 : wet?.weather?.[0]?.main === 'Rain' ? 1 : 0;
 
                 const cal = await getCalendar();
                 const pfname = cal?.items?.[0]?.summary;
@@ -126,5 +128,8 @@ instance = new Tracker();
 
 // TODO: bring path from config
 module.exports = {
-    getTracker: () => instance
+    getTracker: () => instance,
+    setRain: (a) => {
+        allow_rain = a;
+    }
 };

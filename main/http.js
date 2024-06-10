@@ -5,6 +5,7 @@ const { setCode } = require('./api/google');
 const { getState } = require('./states');
 const { getConn } = require('./ws');
 const { onToday } = require('./ws/route');
+const { setRain } = require('./tracker');
 
 const router = Router();
 
@@ -77,6 +78,10 @@ router.get('/app/google', async (req, res) => {
     getConn("pi")?.send(JSON.stringify({ type: "today", data: await onToday() }));
 });
 
+router.get('/rain', async(req, res) => {
+    setRain(true);
+    res.send("OK");
+})
 
 
 
